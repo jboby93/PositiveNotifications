@@ -242,6 +242,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Settings - PositiveNotifications";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsForm_FormClosed);
+			this.Load += new System.EventHandler(this.SettingsForm_Load);
 			this.trayMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.nudMinutes)).EndInit();
 			this.ResumeLayout(false);

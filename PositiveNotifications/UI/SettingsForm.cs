@@ -14,6 +14,8 @@ namespace PositiveNotifications {
 		private bool actuallyClosing = false;
 		private bool firstRun = false;
 
+		private bool windowWasShown = false;
+
 		private int ticksTillNextMessage = 999; // seconds value
 
 		public SettingsForm() {
@@ -26,6 +28,8 @@ namespace PositiveNotifications {
 				notifyIcon1.ShowBalloonTip(5000, "PositiveNotifications", "The program is now running ☺ Right-click the icon to change settings or exit.", ToolTipIcon.Info);
 			} else {
 				firstRun = true;
+
+				MessageBox.Show("Thanks for downloading PositiveNotifications!  Take some time to set up the program and its behavior before you begin.", "Welcome!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 
 			// populate fields with data from configuration
@@ -46,6 +50,8 @@ namespace PositiveNotifications {
 			if(!actuallyClosing) {
 				e.Cancel = true;
 				cancelButton_Click(sender, EventArgs.Empty);
+			} else {
+				timer1.Enabled = false;
 			}
 		}
 
@@ -55,9 +61,9 @@ namespace PositiveNotifications {
 			Configuration.getInstance().settings.ForceAcknowledgement = chkForceReading.Checked;
 			Configuration.getInstance().Save();
 
-			if(firstRun) {
-				notifyIcon1.ShowBalloonTip(5000, "PositiveNotifications", "Awesome! You're all set! ☺ Right-click the icon to change settings or exit.", ToolTipIcon.Info);
-			}
+			//if(firstRun) {
+			notifyIcon1.ShowBalloonTip(5000, "Settings saved", "Awesome! You're all set! ☺ Right-click the icon to change settings or exit.", ToolTipIcon.Info);
+			//}
 
 			ticksTillNextMessage = (int)nudMinutes.Value * 60;
 			timer1.Enabled = true;
@@ -80,6 +86,10 @@ namespace PositiveNotifications {
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
 			actuallyClosing = true;
 			Close();
+
+			if(!windowWasShown) {
+				Application.Exit();
+			}
 		}
 
 		private void previewButton_Click(object sender, EventArgs e) {
@@ -115,6 +125,16 @@ namespace PositiveNotifications {
 
 		private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) {
 			Show();
+		}
+
+		private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e) {
+			if(actuallyClosing) {
+				Application.Exit();
+			}
+		}
+
+		private void SettingsForm_Load(object sender, EventArgs e) {
+			windowWasShown = true;
 		}
 	}
 }
