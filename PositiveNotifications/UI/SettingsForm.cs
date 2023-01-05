@@ -90,5 +90,9 @@ namespace PositiveNotifications {
 
 			notifyIcon1.ShowBalloonTip(8000, "A message for you 🥰", "Repeat after me: " + message, ToolTipIcon.Info);
 		}
+
+		private void SettingsForm_Load(object sender, EventArgs e) {
+
+		}
 	}
 }
