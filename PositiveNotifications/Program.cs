@@ -13,7 +13,19 @@ namespace PositiveNotifications {
 		static void Main() {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+
+			var MainForm = new SettingsForm();
+			var config = Configuration.getInstance();
+
+			if(config.Unsaved) {
+				// app has never been run, or no config file exists
+				// need to show the window
+				Application.Run(MainForm);
+			} else {
+				Application.Run();
+			}
+			
+			
 		}
 	}
 }

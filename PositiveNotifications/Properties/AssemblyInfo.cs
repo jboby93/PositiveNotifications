@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PositiveNotifications")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Your computer will remind you of positive statements!")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("jboby93")]
 [assembly: AssemblyProduct("PositiveNotifications")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCopyright("Copyright © 2023 jboby93")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
