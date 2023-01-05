@@ -75,6 +75,8 @@ namespace PositiveNotifications {
 		public void Save() {
 			string json = JsonConvert.SerializeObject(settings);
 			File.WriteAllText(SettingsFile, json);
+
+			Unsaved = false;
 		}
 
 		public class Settings {

@@ -14,6 +14,8 @@ namespace PositiveNotifications {
 		private bool actuallyClosing = false;
 		private bool firstRun = false;
 
+		private int ticksTillNextMessage = 999; // seconds value
+
 		public SettingsForm() {
 			InitializeComponent();
 
@@ -32,6 +34,8 @@ namespace PositiveNotifications {
 			txtStatements.Text = string.Join(Environment.NewLine, config.Statements);
 			nudMinutes.Value = config.MinutesInterval;
 			chkForceReading.Checked = config.ForceAcknowledgement;
+
+			timer1.Interval = 1000;
 		}
 
 		private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -46,7 +50,20 @@ namespace PositiveNotifications {
 		}
 
 		private void saveButton_Click(object sender, EventArgs e) {
+			Configuration.getInstance().settings.Statements = new List<string> (txtStatements.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+			Configuration.getInstance().settings.MinutesInterval = (int)nudMinutes.Value;
+			Configuration.getInstance().settings.ForceAcknowledgement = chkForceReading.Checked;
+			Configuration.getInstance().Save();
 
+			if(firstRun) {
+				notifyIcon1.ShowBalloonTip(5000, "PositiveNotifications", "Awesome! You're all set! ☺ Right-click the icon to change settings or exit.", ToolTipIcon.Info);
+			}
+
+			ticksTillNextMessage = (int)nudMinutes.Value * 60;
+			timer1.Enabled = true;
+
+			firstRun = false;
+			Hide();
 		}
 
 		private void cancelButton_Click(object sender, EventArgs e) {
@@ -76,11 +93,16 @@ namespace PositiveNotifications {
 		private void timer1_Tick(object sender, EventArgs e) {
 			// do time check....
 
-			//if(chkForceReading.Checked) {
-			//
-			//} else {
-			//	
-			//}
+			ticksTillNextMessage--;
+			if(ticksTillNextMessage == 0) {
+				if(Configuration.getInstance().settings.ForceAcknowledgement) {
+					// ...
+				} else {
+					DoNormalPopup();
+
+					ticksTillNextMessage = Configuration.getInstance().settings.MinutesInterval * 60;
+				}
+			}
 		}
 
 		private void DoNormalPopup() {
@@ -91,8 +113,8 @@ namespace PositiveNotifications {
 			notifyIcon1.ShowBalloonTip(8000, "A message for you 🥰", "Repeat after me: " + message, ToolTipIcon.Info);
 		}
 
-		private void SettingsForm_Load(object sender, EventArgs e) {
-
+		private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) {
+			Show();
 		}
 	}
 }

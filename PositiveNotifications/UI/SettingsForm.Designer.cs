@@ -54,6 +54,7 @@
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
 			this.notifyIcon1.Text = "PositiveNotifications";
 			this.notifyIcon1.Visible = true;
+			this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
 			// 
 			// trayMenu
 			// 
@@ -62,24 +63,25 @@
             this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
 			this.trayMenu.Name = "trayMenu";
-			this.trayMenu.Size = new System.Drawing.Size(117, 54);
+			this.trayMenu.Size = new System.Drawing.Size(121, 54);
 			// 
 			// settingsToolStripMenuItem
 			// 
+			this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
 			this.settingsToolStripMenuItem.Text = "Settings";
 			this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(113, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(117, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -240,7 +242,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Settings - PositiveNotifications";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
-			this.Load += new System.EventHandler(this.SettingsForm_Load);
 			this.trayMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.nudMinutes)).EndInit();
 			this.ResumeLayout(false);
